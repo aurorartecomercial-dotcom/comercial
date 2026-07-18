@@ -10,7 +10,11 @@
     "parcelas": "10x de KZ 10.100,00",
     "freteGratis": true,
     "descricao": "HP Laptop de 14 polegadas para produtividade empresarial estudantil em 2026, MS Office e Win 11 Pro, Copilot AI, CPU Intel de 4 núcleos, RAM DDR5 de 4 GB,...",
-    "imagens": ["HP_LAPTOP.jpg","HP_LAPTOP_ROSA.jpg","HP_LAPTOP_VERDE_BEBE.jpg"],
+    "imagens": [
+      "HP_LAPTOP.jpg",
+      "HP_LAPTOP_ROSA.jpg",
+      "HP_LAPTOP_VERDE_BEBE.jpg"
+    ],
     "tag": "Eletrônicos"
   },
   {
@@ -18,13 +22,17 @@
     "ordem": 2,
     "nome": "Smartphone Galaxy S24",
     "categoria": "eletronicos",
-    "preco": "KZ 85.000,00",
+    "preco": "KZ 8.000,00",
     "precoAntigo": "",
     "desconto": "",
     "parcelas": "8x de KZ 10.625,00",
     "freteGratis": true,
     "descricao": "Câmera 200MP, 12GB RAM.",
-    "imagens": ["HP_LAPTOP.jpg","s24_tras.jpg","s24_lado.jpg"],
+    "imagens": [
+      "HP_LAPTOP.jpg",
+      "s24_tras.jpg",
+      "s24_lado.jpg"
+    ],
     "tag": "Eletrônicos"
   },
   {
@@ -32,13 +40,17 @@
     "ordem": 3,
     "nome": "PlayStation 5 Slim",
     "categoria": "consolas",
-    "preco": "KZ 180.000,00",
-    "precoAntigo": "KZ 200.000,00",
+    "preco": "KZ 140.000,00",
+    "precoAntigo": "KZ 222.000,00",
     "desconto": "10%",
     "parcelas": "12x de KZ 15.000,00",
     "freteGratis": true,
     "descricao": "Console PS5 com 1TB, leitor de discos.",
-    "imagens": ["PS5_BRANCA11.jpg","PS5_MESMO11.jpg","PS5_MESMO.jpg"],
+    "imagens": [
+      "PS5_BRANCA11.jpg",
+      "PS5_MESMO11.jpg",
+      "PS5_MESMO.jpg"
+    ],
     "tag": "Consolas"
   },
   {
@@ -52,7 +64,11 @@
     "parcelas": "6x de KZ 15.833,00",
     "freteGratis": true,
     "descricao": "PS4 Pro 1TB, 4K.",
-    "imagens": ["PS4_PRETA22.jpg","PS4_CAIXA22.jpg","PS4_COMANDO.jpg"],
+    "imagens": [
+      "PS4_PRETA22.jpg",
+      "PS4_CAIXA22.jpg",
+      "PS4_COMANDO.jpg"
+    ],
     "tag": "Consolas"
   },
   {
@@ -66,7 +82,11 @@
     "parcelas": "2x de KZ 6.000,00",
     "freteGratis": false,
     "descricao": "Mídia física.",
-    "imagens": ["JOGO_CALL_OF_DUTY.jpg","JOGO_CALL33.jpg","JOGO_CAPA_DETRAS.jpg"],
+    "imagens": [
+      "JOGO_CALL_OF_DUTY.jpg",
+      "JOGO_CALL33.jpg",
+      "JOGO_CAPA_DETRAS.jpg"
+    ],
     "tag": "Jogos"
   },
   {
@@ -80,7 +100,11 @@
     "parcelas": "2x de KZ 7.000,00",
     "freteGratis": false,
     "descricao": "Mídia física.",
-    "imagens": ["God_of_War_Ragnarokfrente.jpg","God_of_War_Ragnarokmeioe.jpg","God_of_War_RagnarokAAAoe.jpg"],
+    "imagens": [
+      "God_of_War_Ragnarokfrente.jpg",
+      "God_of_War_Ragnarokmeioe.jpg",
+      "God_of_War_RagnarokAAAoe.jpg"
+    ],
     "tag": "Jogos"
   },
   {
@@ -94,7 +118,11 @@
     "parcelas": "3x de KZ 2.833,00",
     "freteGratis": false,
     "descricao": "48 cores, base, top coat e lâmpada UV.",
-    "imagens": ["KIT_UNHA11.jpg","KIT_UUHA.jpg","KIT_III.jpg"],
+    "imagens": [
+      "KIT_UNHA11.jpg",
+      "KIT_UUHA.jpg",
+      "KIT_III.jpg"
+    ],
     "tag": "Beleza"
   },
   {
@@ -108,7 +136,11 @@
     "parcelas": "",
     "freteGratis": false,
     "descricao": "Secagem rápida, efeito mate.",
-    "imagens": ["VERNIS_ROSA.jpg","VERNIS_111.jpg","VERNIS_MAO.jpg"],
+    "imagens": [
+      "VERNIS_ROSA.jpg",
+      "VERNIS_111.jpg",
+      "VERNIS_MAO.jpg"
+    ],
     "tag": "Beleza"
   },
   {
@@ -122,7 +154,11 @@
     "parcelas": "2x de KZ 1.700,00",
     "freteGratis": false,
     "descricao": "Alicates, lixas, palitos.",
-    "imagens": ["KIT__UULLLQQ.jpg","KIT_PREPAREO.jpg","KIT_KITS.jpg"],
+    "imagens": [
+      "KIT__UULLLQQ.jpg",
+      "KIT_PREPAREO.jpg",
+      "KIT_KITS.jpg"
+    ],
     "tag": "Beleza"
   },
   {
@@ -136,7 +172,11 @@
     "parcelas": "4x de KZ 3.750,00",
     "freteGratis": true,
     "descricao": "Copo em vidro, 3 velocidades.",
-    "imagens": ["COLIFICADOR_1.jpg","COLIF_2.jpg","COLIF_2.jpg"],
+    "imagens": [
+      "COLIFICADOR_1.jpg",
+      "COLIF_2.jpg",
+      "COLIF_2.jpg"
+    ],
     "tag": "Cozinha"
   },
   {
@@ -150,7 +190,11 @@
     "parcelas": "5x de KZ 4.400,00",
     "freteGratis": true,
     "descricao": "5 peças, revestimento cerâmico.",
-    "imagens": ["PANELAS_PRETA.jpg","PANELA_FOGO1.jpg","PANELA_FOGO_33.jpg"],
+    "imagens": [
+      "PANELAS_PRETA.jpg",
+      "PANELA_FOGO1.jpg",
+      "PANELA_FOGO_33.jpg"
+    ],
     "tag": "Cozinha"
   },
   {
@@ -164,7 +208,11 @@
     "parcelas": "2x de KZ 3.250,00",
     "freteGratis": false,
     "descricao": "Facas, garfos e colheres.",
-    "imagens": ["COLHER_1.jpg","COLRR.jpg","CCCCO.jpg"],
+    "imagens": [
+      "COLHER_1.jpg",
+      "COLRR.jpg",
+      "CCCCO.jpg"
+    ],
     "tag": "Cozinha"
   },
   {
@@ -178,7 +226,11 @@
     "parcelas": "6x de KZ 4.666,00",
     "freteGratis": true,
     "descricao": "Bluetooth, bateria longa.",
-    "imagens": ["boombox_frente.jpg","boombox_tras.jpg","boombox_lado.jpg"],
+    "imagens": [
+      "boombox_frente.jpg",
+      "boombox_tras.jpg",
+      "boombox_lado.jpg"
+    ],
     "tag": "Colunas"
   },
   {
@@ -192,7 +244,11 @@
     "parcelas": "6x de KZ 5.333,00",
     "freteGratis": true,
     "descricao": "HDMI ARC, controle remoto.",
-    "imagens": ["soundbar_frente.jpg","soundbar_tras.jpg","soundbar_lado.jpg"],
+    "imagens": [
+      "soundbar_frente.jpg",
+      "soundbar_tras.jpg",
+      "soundbar_lado.jpg"
+    ],
     "tag": "Colunas"
   },
   {
@@ -206,7 +262,11 @@
     "parcelas": "3x de KZ 4.000,00",
     "freteGratis": true,
     "descricao": "Mandril autoblocante, 10 brocas.",
-    "imagens": ["furadeira_frente.jpg","furadeira_tras.jpg","furadeira_lado.jpg"],
+    "imagens": [
+      "furadeira_frente.jpg",
+      "furadeira_tras.jpg",
+      "furadeira_lado.jpg"
+    ],
     "tag": "Ferramentas"
   },
   {
@@ -220,7 +280,11 @@
     "parcelas": "",
     "freteGratis": false,
     "descricao": "Chaves de fenda e philips.",
-    "imagens": ["chaves_frente.jpg","chaves_tras.jpg","chaves_lado.jpg"],
+    "imagens": [
+      "chaves_frente.jpg",
+      "chaves_tras.jpg",
+      "chaves_lado.jpg"
+    ],
     "tag": "Ferramentas"
   },
   {
@@ -234,7 +298,11 @@
     "parcelas": "360x de KZ 125.000,00",
     "freteGratis": false,
     "descricao": "2 quartos, sala, cozinha, varanda.",
-    "imagens": ["apt_frente.jpg","apt_sala.jpg","apt_quarto.jpg"],
+    "imagens": [
+      "apt_frente.jpg",
+      "apt_sala.jpg",
+      "apt_quarto.jpg"
+    ],
     "tag": "Imóveis"
   },
   {
@@ -248,7 +316,11 @@
     "parcelas": "480x de KZ 177.083,00",
     "freteGratis": false,
     "descricao": "4 quartos, piscina, jardim, garagem.",
-    "imagens": ["vivenda_frente.jpg","vivenda_jardim.jpg","vivenda_piscina.jpg"],
+    "imagens": [
+      "vivenda_frente.jpg",
+      "vivenda_jardim.jpg",
+      "vivenda_piscina.jpg"
+    ],
     "tag": "Imóveis"
   },
   {
@@ -262,7 +334,11 @@
     "parcelas": "3x de KZ 4.166,00",
     "freteGratis": false,
     "descricao": "Viscose floral, alças finas.",
-    "imagens": ["vestido_frente.jpg","vestido_tras.jpg","vestido_lado.jpg"],
+    "imagens": [
+      "vestido_frente.jpg",
+      "vestido_tras.jpg",
+      "vestido_lado.jpg"
+    ],
     "tag": "Moda Feminina"
   },
   {
@@ -276,7 +352,11 @@
     "parcelas": "2x de KZ 4.450,00",
     "freteGratis": false,
     "descricao": "Seda pura, gola laço.",
-    "imagens": ["blusa_frente.jpg","blusa_tras.jpg","blusa_lado.jpg"],
+    "imagens": [
+      "blusa_frente.jpg",
+      "blusa_tras.jpg",
+      "blusa_lado.jpg"
+    ],
     "tag": "Moda Feminina"
   },
   {
@@ -290,7 +370,11 @@
     "parcelas": "3x de KZ 2.400,00",
     "freteGratis": true,
     "descricao": "Algodão egípcio, corte slim.",
-    "imagens": ["camisa_frente.jpg","camisa_tras.jpg","camisa_lado.jpg"],
+    "imagens": [
+      "camisa_frente.jpg",
+      "camisa_tras.jpg",
+      "camisa_lado.jpg"
+    ],
     "tag": "Moda Masculina"
   },
   {
@@ -304,7 +388,11 @@
     "parcelas": "2x de KZ 2.900,00",
     "freteGratis": false,
     "descricao": "Elastano, confortável.",
-    "imagens": ["jeans_frente.jpg","jeans_tras.jpg","jeans_lado.jpg"],
+    "imagens": [
+      "jeans_frente.jpg",
+      "jeans_tras.jpg",
+      "jeans_lado.jpg"
+    ],
     "tag": "Moda Masculina"
   },
   {
@@ -318,7 +406,11 @@
     "parcelas": "4x de KZ 3.500,00",
     "freteGratis": true,
     "descricao": "Couro legítimo.",
-    "imagens": ["tenis_frente.jpg","tenis_tras.jpg","tenis_lado.jpg"],
+    "imagens": [
+      "tenis_frente.jpg",
+      "tenis_tras.jpg",
+      "tenis_lado.jpg"
+    ],
     "tag": "Calçados"
   },
   {
@@ -332,7 +424,11 @@
     "parcelas": "3x de KZ 3.100,00",
     "freteGratis": false,
     "descricao": "Tiras ajustáveis.",
-    "imagens": ["sandalia_frente.jpg","sandalia_tras.jpg","sandalia_lado.jpg"],
+    "imagens": [
+      "sandalia_frente.jpg",
+      "sandalia_tras.jpg",
+      "sandalia_lado.jpg"
+    ],
     "tag": "Calçados"
   },
   {
@@ -346,7 +442,11 @@
     "parcelas": "6x de KZ 7.500,00",
     "freteGratis": true,
     "descricao": "Ouro maciço.",
-    "imagens": ["pulseira_frente.jpg","pulseira_tras.jpg","pulseira_lado.jpg"],
+    "imagens": [
+      "pulseira_frente.jpg",
+      "pulseira_tras.jpg",
+      "pulseira_lado.jpg"
+    ],
     "tag": "Joias"
   },
   {
@@ -360,7 +460,11 @@
     "parcelas": "3x de KZ 1.851,00",
     "freteGratis": false,
     "descricao": "Prata 925.",
-    "imagens": ["pulseira_prata_frente.jpg","pulseira_prata_tras.jpg","pulseira_prata_lado.jpg"],
+    "imagens": [
+      "pulseira_prata_frente.jpg",
+      "pulseira_prata_tras.jpg",
+      "pulseira_prata_lado.jpg"
+    ],
     "tag": "Joias"
   },
   {
@@ -374,7 +478,11 @@
     "parcelas": "12x de KZ 21.250,00",
     "freteGratis": false,
     "descricao": "Motor turbo 3.0L, 480 cv.",
-    "imagens": ["porsche_frente.jpg","porsche_tras.jpg","porsche_lado.jpg"],
+    "imagens": [
+      "porsche_frente.jpg",
+      "porsche_tras.jpg",
+      "porsche_lado.jpg"
+    ],
     "tag": "Automóveis"
   },
   {
@@ -388,7 +496,11 @@
     "parcelas": "10x de KZ 18.500,00",
     "freteGratis": false,
     "descricao": "Sedan luxo.",
-    "imagens": ["mercedes_frente.jpg","mercedes_tras.jpg","mercedes_lado.jpg"],
+    "imagens": [
+      "mercedes_frente.jpg",
+      "mercedes_tras.jpg",
+      "mercedes_lado.jpg"
+    ],
     "tag": "Automóveis"
   }
 ]

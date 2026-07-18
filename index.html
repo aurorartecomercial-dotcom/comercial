@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aurora Comercial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- TOAST -->
+    <div id="toast-notificacao">Adicionado ao carrinho!</div>
+    <div class="carrinho-overlay" id="carrinhoOverlay"></div>
+
+    <!-- HEADER -->
+    <header class="header-principal">
+        <div class="header-top">
+            <div class="logo">
+                <img src="logo auro.png" alt="Aurora" />
+                <span>Aurora<br />Comercial</span>
+            </div>
+            <form class="busca-container" onsubmit="event.preventDefault();">
+                <input type="search" id="campoBusca" placeholder="Buscar produtos..." class="busca-input" />
+                <button type="submit">🔍</button>
+            </form>
+            <div class="header-icones">
+                <button class="btn-entrar">Entrar</button>
+                <button id="abrirCarrinhoFlutuante" class="carrinho-icone">
+                    🛒 <span id="badgeContador">0</span>
+                </button>
+            </div>
+        </div>
+        <nav class="menu-categorias">
+            <ul>
+                <li><a href="#" data-categoria="todos" class="ativo">Todos</a></li>
+                <li><a href="#" data-categoria="eletronicos">Eletrônicos</a></li>
+                <li><a href="#" data-categoria="consolas">Consolas</a></li>
+                <li><a href="#" data-categoria="beleza">Beleza</a></li>
+                <li><a href="#" data-categoria="cozinha">Cozinha</a></li>
+                <li><a href="#" data-categoria="colunas">Colunas</a></li>
+                <li><a href="#" data-categoria="ferramentas">Ferramentas</a></li>
+                <li><a href="#" data-categoria="casa">Casa</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Roupas ▾</a>
+                    <ul class="submenu">
+                        <li><a href="#" data-categoria="feminino">Feminino</a></li>
+                        <li><a href="#" data-categoria="masculino">Masculino</a></li>
+                        <li><a href="#" data-categoria="calcados">Sapatos</a></li>
+                        <li><a href="#" data-categoria="joias">Pulseiras</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" data-categoria="automoveis">Carros</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main id="conteudo-principal">
+
+        <!-- CARROSSEL -->
+        <section class="carrossel-ofertas">
+            <div class="carrossel-container">
+                <div class="carrossel-slides" id="carrosselSlides">
+                    <div class="slide ativo">
+                        <img src="oferta1.jpg" alt="Oferta 1" />
+                        <div class="slide-texto">
+                            <h2>🔥 Ofertas Imperdíveis</h2>
+                            <p>Até 45% OFF em eletrônicos e moda</p>
+                            <a href="#" class="btn-slide">Ver ofertas</a>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="jogos_ggppp.jpg" alt="Oferta 2" />
+                        <div class="slide-texto">
+                            <h2>🎮 Consolas e Jogos</h2>
+                            <p>PS5, PS4 e os melhores jogos com desconto</p>
+                            <a href="#" class="btn-slide">Comprar</a>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="oferta3.jpg" alt="Oferta 3" />
+                        <div class="slide-texto">
+                            <h2>💅 Beleza em Destaque</h2>
+                            <p>Kits de unhas e maquilhagem com preços especiais</p>
+                            <a href="#" class="btn-slide">Ver produtos</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="carrossel-btn anterior" onclick="mudarSlide(-1)">❮</button>
+                <button class="carrossel-btn proximo" onclick="mudarSlide(1)">❯</button>
+                <div class="carrossel-indicadores" id="carrosselIndicadores">
+                    <span class="indicador ativo" data-slide="0"></span>
+                    <span class="indicador" data-slide="1"></span>
+                    <span class="indicador" data-slide="2"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIS COMPRADOS -->
+        <section class="secao-mais-comprados">
+            <div class="secao-titulo">
+                <h2>⭐ Mais Comprados da Semana</h2>
+                <a href="#" class="ver-todos">Ver todos →</a>
+            </div>
+            <div class="grade-produtos" id="maisCompradosGrid"></div>
+        </section>
+
+        <!-- GRADE TODOS -->
+        <section id="pagina-grade" class="pagina-ativa">
+            <div class="vitrine-container">
+                <div class="filtros-rapidos">
+                    <span class="filtro-rapido ativo" data-categoria="todos">Todos</span>
+                    <span class="filtro-rapido" data-categoria="eletronicos">Eletrônicos</span>
+                    <span class="filtro-rapido" data-categoria="consolas">Consolas</span>
+                    <span class="filtro-rapido" data-categoria="beleza">Beleza</span>
+                    <span class="filtro-rapido" data-categoria="cozinha">Cozinha</span>
+                    <span class="filtro-rapido" data-categoria="colunas">Colunas</span>
+                    <span class="filtro-rapido" data-categoria="ferramentas">Ferramentas</span>
+                    <span class="filtro-rapido" data-categoria="casa">Casa</span>
+                    <span class="filtro-rapido" data-categoria="feminino">Feminino</span>
+                    <span class="filtro-rapido" data-categoria="masculino">Masculino</span>
+                    <span class="filtro-rapido" data-categoria="calcados">Sapatos</span>
+                    <span class="filtro-rapido" data-categoria="joias">Pulseiras</span>
+                    <span class="filtro-rapido" data-categoria="automoveis">Carros</span>
+                </div>
+                <!-- Indicador de carregamento -->
+                <div id="carregandoProdutos" style="text-align:center; padding:40px; color:#999;">Carregando produtos...</div>
+                <div class="grade-produtos" id="gradeProdutos"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CARRINHO LATERAL -->
+    <aside class="carrinho-sidebar" id="carrinhoSidebar">
+        <div class="carrinho-header">
+            <h2>🛒 Minha Sacola</h2>
+            <button class="btn-fechar-carrinho" id="btnFecharCarrinho">&times;</button>
+        </div>
+        <ul class="carrinho-corpo" id="itensCarrinhoLoja"></ul>
+        <div class="carrinho-footer">
+            <div class="total-linha">
+                <span>Total:</span>
+                <span><span id="totalCarrinhoLoja">0</span> Kz</span>
+            </div>
+            <button id="btnFinalizarWhatsApp" class="btn-finalizar">Enviar Pedido ao WhatsApp</button>
+        </div>
+    </aside>
+
+    <!-- BALANÇO -->
+    <section class="secao-balanco" id="balanco-secao">
+        <h2>📊 Balanço de Vendas & Histórico da Semana</h2>
+        <div class="painel-faturamento">
+            <div class="card-faturamento sucesso">
+                <p>Faturamento Total</p>
+                <h3><span id="faturamentoTotal">0</span> Kz</h3>
+            </div>
+            <div class="card-faturamento">
+                <p>Pedidos Concluídos</p>
+                <h3><span id="qtdPedidosTotal">0</span></h3>
+            </div>
+            <div class="card-faturamento">
+                <p>Itens Vendidos</p>
+                <h3><span id="itensVendidosTotal">0</span></h3>
+            </div>
+        </div>
+        <div class="tabela-historico-container">
+            <table class="tabela-historico">
+                <thead><tr><th>Data / Hora</th><th>Produtos</th><th>Total</th></tr></thead>
+                <tbody id="corpoTabelaHistorico"></tbody>
+            </table>
+        </div>
+        <button class="btn-limpar-balanco" id="btnLimparHistorico">Limpar Histórico da Semana</button>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer class="rodape-profissional" id="sobre-empresa">
+        <div class="rodape-grid">
+            <div class="rodape-coluna">
+                <h3>Aurora Comercial</h3>
+                <p>Marketplace angolano com curadoria premium em eletrônicos, moda, acessórios, automóveis e muito mais.</p>
+            </div>
+            <div class="rodape-coluna">
+                <h4>Categorias</h4>
+                <ul>
+                    <li><a href="#" onclick="filtrarPorCategoria('eletronicos')">Eletrônicos</a></li>
+                    <li><a href="#" onclick="filtrarPorCategoria('consolas')">Consolas</a></li>
+                    <li><a href="#" onclick="filtrarPorCategoria('beleza')">Beleza</a></li>
+                    <li><a href="#" onclick="filtrarPorCategoria('cozinha')">Cozinha</a></li>
+                    <li><a href="#" onclick="filtrarPorCategoria('casa')">Casa</a></li>
+                    <li><a href="#" onclick="filtrarPorCategoria('automoveis')">Carros</a></li>
+                </ul>
+            </div>
+            <div class="rodape-coluna">
+                <h4>Contacto</h4>
+                <p>📞 +244 925 328 181</p>
+                <p>✉️ contacto@aurorarte.ao</p>
+                <p>📍 Luanda, Angola</p>
+            </div>
+        </div>
+        <div class="rodape-copyright">&copy; 2026 AURORARTE COMERCIAL. Todos os direitos reservados.</div>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

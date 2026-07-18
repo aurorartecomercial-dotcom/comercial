@@ -1,0 +1,54 @@
+Attached Element Context from Integrated Browser
+
+Element: footer.rodape
+
+URL: file:///c%3A/PYGAME/JOGOS/SITES%20BOM/index.html
+
+HTML Path: footer.rodape
+
+Outer HTML:
+```html
+<footer class="rodape">
+        © 2026 Aurora Comercial. Todos os direitos reservados.
+    </footer>
+```
+
+Dimensions:
+- top: 440px
+- left: 0px
+- width: 1002px
+- height: 87px
+
+CSS:
+```css
+* { margin: 0;
+        padding: 0;
+        box-sizing: border-box; }
+.rodape { text-align: center;
+        padding: 30px 20px 40px;
+        color: rgba(107, 225, 17, 0.89);
+        font-size: 12px;
+        letter-spacing: 1px;
+        border-top: 1px solid var(--borda-suave); }
+
+/* Inherited */
+body { color: #ffffff; font-family: var(--fonte-corpo) }
+
+/* Resolved values */
+margin: 0px;
+padding: 30px 20px 40px;
+box-sizing: border-box;
+color: rgba(255, 255, 255, 0.4);
+display: block;
+font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+font-size: 12px;
+height: 86.64px;
+letter-spacing: 1px;
+text-align: center;
+unicode-bidi: isolate /*UA*/;
+width: 1001.6px;
+
+/* CSS variables */
+--fonte-corpo: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--borda-suave: rgba(255, 255, 255, 0.08);
+```

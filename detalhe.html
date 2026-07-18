@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalhes - Aurora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f3ef;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+        }
+        .btn-voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .btn-voltar:hover { color: #b8860b; }
+        .detalhes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        .detalhes-imagem-principal img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            background: #f5f3ef;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+        .detalhes-miniaturas {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .detalhes-miniaturas img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: 0.2s;
+            background: #f5f3ef;
+        }
+        .detalhes-miniaturas img:hover,
+        .detalhes-miniaturas img.ativa {
+            border-color: #b8860b;
+            box-shadow: 0 0 0 2px #e8c97a;
+        }
+        .detalhes-info { display: flex; flex-direction: column; gap: 12px; }
+        .categoria-tag {
+            color: #b8860b;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .detalhes-info h2 { font-size: 28px; font-weight: 700; }
+        .detalhes-precos {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .preco-antigo { font-size: 20px; color: #999; text-decoration: line-through; }
+        .preco-destaque { font-size: 32px; font-weight: 700; color: #8b6508; }
+        .desconto-badge {
+            background: #e74c3c;
+            color: #fff;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .parcelas { font-size: 15px; color: #666; }
+        .descricao { font-size: 16px; line-height: 1.7; color: #444; margin: 8px 0; }
+        .frete-gratis {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-block;
+            width: fit-content;
+        }
+        .btn-comprar-grande {
+            background: #b8860b;
+            color: #fff;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 16px;
+            align-self: flex-start;
+        }
+        .btn-comprar-grande:hover { background: #8b6508; transform: scale(1.02); }
+        .erro-msg { text-align: center; padding: 40px 20px; color: #e74c3c; }
+        .erro-msg h2 { font-size: 24px; margin-bottom: 10px; }
+        .erro-msg p { color: #666; }
+        .carregando-msg { text-align: center; padding: 60px 20px; color: #999; font-size: 18px; }
+        @media (max-width: 768px) {
+            .detalhes-grid { grid-template-columns: 1fr; gap: 24px; }
+            .container { padding: 16px; }
+            .detalhes-info h2 { font-size: 22px; }
+            .preco-destaque { font-size: 26px; }
+            .detalhes-miniaturas img { width: 60px; height: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="btn-voltar">← Voltar aos produtos</a>
+        <div id="detalhesConteudo">
+            <div class="carregando-msg">⏳ Carregando produto...</div>
+        </div>
+    </div>
+
+    <script>
+        const NUMERO_WHATSAPP = '244925328181';
+
+        function extrairValorNumerico(precoString) {
+            if (!precoString) return 0;
+            const numeros = precoString.replace(/[^0-9,]/g, '').replace(',', '.');
+            return parseFloat(numeros) || 0;
+        }
+
+        function carregarProduto(id) {
+            console.log('Carregando produto com ID:', id);
+
+            // 1º tentar localStorage
+            let produtos = [];
+            try {
+                const dados = localStorage.getItem('aurora_produtos_admin');
+                if (dados) produtos = JSON.parse(dados);
+            } catch (e) {}
+
+            if (produtos.length > 0) {
+                const prod = produtos.find(p => p.id === id);
+                if (prod) { renderizarDetalhes(prod); return; }
+            }
+
+            // 2º fallback: produtos.json
+            fetch('produtos.json')
+                .then(res => {
+                    if (!res.ok) throw new Error('Erro ao carregar JSON');
+                    return res.json();
+                })
+                .then(dados => {
+                    const prod = dados.find(p => p.id === id);
+                    if (prod) renderizarDetalhes(prod);
+                    else mostrarErro('Produto não encontrado no catálogo.');
+                })
+                .catch(() => {
+                    mostrarErro('Erro ao carregar os dados. Verifique a conexão.');
+                });
+        }
+
+        function mostrarErro(mensagem) {
+            document.getElementById('detalhesConteudo').innerHTML = `
+                <div class="erro-msg">
+                    <h2>⚠️ Ops!</h2>
+                    <p>${mensagem}</p>
+                    <p style="margin-top:20px;"><a href="index.html" style="color:#b8860b; font-weight:600;">Voltar para a loja</a></p>
+                </div>
+            `;
+        }
+
+        function renderizarDetalhes(prod) {
+            const container = document.getElementById('detalhesConteudo');
+            let miniaturasHtml = prod.imagens.map((src, i) =>
+                `<img src="${src}" alt="Miniatura ${i+1}" data-index="${i}" class="${i === 0 ? 'ativa' : ''}" onerror="this.src='placeholder.jpg'">`
+            ).join('');
+
+            container.innerHTML = `
+                <div class="detalhes-grid">
+                    <div class="detalhes-imagem-principal">
+                        <img id="detalhesImg" src="${prod.imagens[0]}" alt="${prod.nome}" onerror="this.src='placeholder.jpg'" />
+                        <div class="detalhes-miniaturas" id="miniaturas">${miniaturasHtml}</div>
+                    </div>
+                    <div class="detalhes-info">
+                        <span class="categoria-tag">${prod.tag || prod.categoria}</span>
+                        <h2>${prod.nome}</h2>
+                        <div class="detalhes-precos">
+                            ${prod.precoAntigo ? `<span class="preco-antigo">${prod.precoAntigo}</span>` : ''}
+                            <span class="preco-destaque">${prod.preco}</span>
+                            ${prod.desconto ? `<span class="desconto-badge">${prod.desconto} OFF</span>` : ''}
+                        </div>
+                        ${prod.parcelas ? `<div class="parcelas">${prod.parcelas}</div>` : ''}
+                        ${prod.freteGratis ? `<div class="frete-gratis">🚚 Frete grátis</div>` : ''}
+                        <div class="descricao">${prod.descricao || 'Descrição não disponível.'}</div>
+                        <button class="btn-comprar-grande" id="btnComprarDetalhe">🛒 Adicionar à Sacola</button>
+                    </div>
+                </div>
+            `;
+
+            // Miniaturas
+            const miniaturas = document.querySelectorAll('#miniaturas img');
+            const imgPrincipal = document.getElementById('detalhesImg');
+            miniaturas.forEach(img => {
+                img.addEventListener('click', function() {
+                    miniaturas.forEach(m => m.classList.remove('ativa'));
+                    this.classList.add('ativa');
+                    imgPrincipal.src = this.src;
+                });
+            });
+
+            // Botão comprar
+            document.getElementById('btnComprarDetalhe').addEventListener('click', function() {
+                let carrinho = JSON.parse(localStorage.getItem('carrinho_aurora')) || [];
+                const existente = carrinho.find(i => i.nome === prod.nome);
+                if (existente) {
+                    existente.quantidade += 1;
+                } else {
+                    carrinho.push({ nome: prod.nome, preco: prod.preco, quantidade: 1 });
+                }
+                localStorage.setItem('carrinho_aurora', JSON.stringify(carrinho));
+                alert('✅ Produto adicionado à sacola!');
+            });
+        }
+
+        // === OBTÉM O ID DA URL ===
+        const params = new URLSearchParams(window.location.search);
+        const idProduto = parseInt(params.get('id'));
+
+        console.log('ID recebido na URL:', idProduto);
+
+        if (idProduto && !isNaN(idProduto)) {
+            carregarProduto(idProduto);
+        } else {
+            mostrarErro('Nenhum ID de produto foi informado na URL.<br>Exemplo: <code>detalhe.html?id=1</code>');
+        }
+    </script>
+</body>
+</html>

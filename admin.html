@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Admin - Aurora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f3ef;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+        }
+        .admin-container {
+            max-width: 1100px;
+            width: 100%;
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+        }
+        h1 { font-size: 28px; margin-bottom: 8px; }
+        p.sub { color: #666; margin-bottom: 24px; }
+        .login-box { text-align: center; padding: 40px 0; }
+        .login-box input { padding: 10px 16px; margin: 8px; border: 1px solid #ddd; border-radius: 8px; width: 200px; }
+        .login-box button { padding: 10px 24px; background: #b8860b; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .login-box button:hover { background: #8b6508; }
+        .painel { display: none; }
+        .form-produto {
+            background: #fafaf8;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .form-produto input, .form-produto select, .form-produto textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        .form-produto textarea { grid-column: 1 / -1; resize: vertical; min-height: 60px; }
+        .form-produto button { grid-column: 1 / -1; padding: 12px; background: #b8860b; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .form-produto button:hover { background: #8b6508; }
+        .form-produto .checkbox-group { grid-column: 1 / -1; display: flex; gap: 20px; align-items: center; }
+        .lista-produtos table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .lista-produtos th { text-align: left; background: #f5f3ef; padding: 10px 12px; }
+        .lista-produtos td { padding: 10px 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        .lista-produtos td:last-child { text-align: right; }
+        .btn-editar, .btn-excluir { padding: 4px 12px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; margin-left: 6px; transition: 0.2s; }
+        .btn-editar { background: #3483fa; color: #fff; }
+        .btn-editar:hover { background: #2a6fd4; }
+        .btn-excluir { background: #e74c3c; color: #fff; }
+        .btn-excluir:hover { background: #c0392b; }
+        .btn-restaurar { background: #666; color: #fff; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; margin-top: 16px; transition: 0.2s; }
+        .btn-restaurar:hover { background: #444; }
+        .btn-salvar-github { background: #24292e; color: #fff; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; margin-top: 16px; font-weight: 600; transition: 0.2s; }
+        .btn-salvar-github:hover { background: #1a1e22; }
+        .btn-upload { background: #6c5ce7; color: #fff; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; margin-top: 16px; font-weight: 600; transition: 0.2s; }
+        .btn-upload:hover { background: #5a4bd1; }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; padding: 12px 28px; border-radius: 40px; font-weight: 600; opacity: 0; transition: opacity 0.3s; z-index: 9999; }
+        .toast.show { opacity: 1; }
+        .status { background: #f0f0f0; padding: 8px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; }
+        .input-file-wrapper { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+        .input-file-wrapper input[type="file"] { display: none; }
+        .input-file-wrapper label { background: #6c5ce7; color: #fff; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+        .input-file-wrapper label:hover { background: #5a4bd1; }
+        @media (max-width:600px) {
+            .form-produto { grid-template-columns: 1fr; }
+            .admin-container { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>🛠️ Painel Admin - Aurora</h1>
+        <p class="sub">Gerencie seus produtos – as alterações são salvas no navegador e sincronizadas com a loja.</p>
+
+        <!-- LOGIN -->
+        <div id="loginBox" class="login-box">
+            <h2>🔐 Acesso restrito</h2>
+            <input type="text" id="loginUser" placeholder="Usuário" value="admin" />
+            <input type="password" id="loginPass" placeholder="Senha" value="123456" />
+            <button id="btnLogin">Entrar</button>
+            <p style="margin-top:12px; font-size:12px; color:#999;">Padrão: admin / 123456</p>
+        </div>
+
+        <!-- PAINEL -->
+        <div id="painelAdmin" class="painel">
+            <div class="status" id="statusConexao">📦 Produtos carregados.</div>
+
+            <h2>➕ Adicionar / Editar Produto</h2>
+            <form id="formProduto" class="form-produto">
+                <input type="hidden" id="prodId" value="" />
+                <input type="text" id="nome" placeholder="Nome do produto *" required />
+                <input type="text" id="categoria" placeholder="Categoria (ex: eletronicos) *" required />
+                <input type="text" id="preco" placeholder="Preço (ex: KZ 101.000,00) *" required />
+                <input type="text" id="precoAntigo" placeholder="Preço antigo (opcional)" />
+                <input type="text" id="desconto" placeholder="Desconto (ex: 16%)" />
+                <input type="text" id="parcelas" placeholder="Parcelas (ex: 10x de KZ 10.100,00)" />
+                <input type="text" id="tag" placeholder="Tag (ex: Eletrônicos) *" required />
+                <input type="text" id="imagens" placeholder="URLs das imagens (separadas por vírgula) *" required />
+                <input type="number" id="ordem" placeholder="Ordem (número, ex: 1,2,3...)" value="999" />
+                <textarea id="descricao" placeholder="Descrição do produto (use &lt;br&gt; para quebras)"></textarea>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="freteGratis" /> Frete grátis</label>
+                </div>
+                <button type="submit">💾 Salvar Produto</button>
+            </form>
+
+            <hr style="margin:30px 0;" />
+
+            <h2>📋 Lista de Produtos</h2>
+            <div class="lista-produtos">
+                <table>
+                    <thead><tr><th>ID</th><th>Nome</th><th>Categoria</th><th>Preço</th><th>Ordem</th><th>Ações</th></tr></thead>
+                    <tbody id="tabelaProdutos"></tbody>
+                </table>
+            </div>
+
+            <div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap;">
+                <button class="btn-restaurar" id="btnRestaurar">↺ Restaurar produtos padrão</button>
+                <button class="btn-salvar-github" id="btnSalvarGitHub">📤 Baixar JSON (produtos.json)</button>
+                <div class="input-file-wrapper">
+                    <label for="uploadJson">⬆️ Upload JSON</label>
+                    <input type="file" id="uploadJson" accept=".json" />
+                </div>
+            </div>
+            <p style="margin-top:12px; font-size:12px; color:#999;">
+                💡 Use "Baixar JSON" para substituir o arquivo no repositório. Use "Upload JSON" para carregar uma lista personalizada.
+            </p>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // ===== CONFIGURAÇÃO DE LOGIN =====
+        const USUARIO = 'admin';
+        const SENHA = '123456';
+        let produtos = [];
+
+        function toast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 3000);
+        }
+
+        function carregarProdutos() {
+            try {
+                const dados = localStorage.getItem('aurora_produtos_admin');
+                if (dados) {
+                    produtos = JSON.parse(dados);
+                    renderizarTabela();
+                    document.getElementById('statusConexao').textContent = '✅ ' + produtos.length + ' produtos carregados do localStorage.';
+                    return;
+                }
+            } catch (e) {
+                console.warn('Erro ao ler localStorage:', e);
+            }
+
+            // Fallback: carregar do JSON
+            fetch('produtos.json')
+                .then(res => {
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    return res.json();
+                })
+                .then(dadosJson => {
+                    produtos = dadosJson;
+                    localStorage.setItem('aurora_produtos_admin', JSON.stringify(produtos));
+                    renderizarTabela();
+                    document.getElementById('statusConexao').textContent = '✅ ' + produtos.length + ' produtos carregados (fallback JSON).';
+                })
+                .catch(err => {
+                    console.error('Erro ao carregar produtos.json:', err);
+                    produtos = [];
+                    renderizarTabela();
+                    document.getElementById('statusConexao').textContent = '⚠️ Nenhum produto encontrado.';
+                    toast('❌ Erro ao carregar produtos. Verifique o console.');
+                });
+        }
+
+        function renderizarTabela() {
+            const tbody = document.getElementById('tabelaProdutos');
+            tbody.innerHTML = '';
+            if (!produtos || produtos.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#999;">Nenhum produto cadastrado.</td></tr>`;
+                return;
+            }
+            const ordenados = [...produtos].sort((a, b) => (a.ordem || a.id) - (b.ordem || b.id));
+            ordenados.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${p.id}</td>
+                    <td><strong>${p.nome}</strong></td>
+                    <td>${p.categoria}</td>
+                    <td>${p.preco}</td>
+                    <td>${p.ordem || '—'}</td>
+                    <td>
+                        <button class="btn-editar" data-id="${p.id}">Editar</button>
+                        <button class="btn-excluir" data-id="${p.id}">Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            tbody.querySelectorAll('.btn-editar').forEach(btn => {
+                btn.addEventListener('click', () => carregarParaEdicao(parseInt(btn.dataset.id)));
+            });
+            tbody.querySelectorAll('.btn-excluir').forEach(btn => {
+                btn.addEventListener('click', () => excluirProduto(parseInt(btn.dataset.id)));
+            });
+        }
+
+        function carregarParaEdicao(id) {
+            const prod = produtos.find(p => p.id === id);
+            if (!prod) return;
+            document.getElementById('prodId').value = prod.id;
+            document.getElementById('nome').value = prod.nome;
+            document.getElementById('categoria').value = prod.categoria;
+            document.getElementById('preco').value = prod.preco;
+            document.getElementById('precoAntigo').value = prod.precoAntigo || '';
+            document.getElementById('desconto').value = prod.desconto || '';
+            document.getElementById('parcelas').value = prod.parcelas || '';
+            document.getElementById('tag').value = prod.tag || '';
+            document.getElementById('imagens').value = prod.imagens.join(', ');
+            document.getElementById('descricao').value = prod.descricao || '';
+            document.getElementById('freteGratis').checked = prod.freteGratis || false;
+            document.getElementById('ordem').value = prod.ordem || 999;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function excluirProduto(id) {
+            if (!confirm('Excluir este produto?')) return;
+            produtos = produtos.filter(p => p.id !== id);
+            localStorage.setItem('aurora_produtos_admin', JSON.stringify(produtos));
+            renderizarTabela();
+            toast('🗑️ Produto excluído!');
+        }
+
+        document.getElementById('formProduto').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('prodId').value;
+            const nome = document.getElementById('nome').value.trim();
+            const categoria = document.getElementById('categoria').value.trim();
+            const preco = document.getElementById('preco').value.trim();
+            const precoAntigo = document.getElementById('precoAntigo').value.trim();
+            const desconto = document.getElementById('desconto').value.trim();
+            const parcelas = document.getElementById('parcelas').value.trim();
+            const tag = document.getElementById('tag').value.trim();
+            const imagensStr = document.getElementById('imagens').value.trim();
+            const imagens = imagensStr.split(',').map(s => s.trim()).filter(s => s);
+            const descricao = document.getElementById('descricao').value.trim();
+            const freteGratis = document.getElementById('freteGratis').checked;
+            const ordem = parseInt(document.getElementById('ordem').value) || 999;
+
+            if (!nome || !categoria || !preco || !tag || imagens.length === 0) {
+                toast('⚠️ Preencha todos os campos obrigatórios.');
+                return;
+            }
+
+            if (id) {
+                const index = produtos.findIndex(p => p.id === parseInt(id));
+                if (index !== -1) {
+                    produtos[index] = { ...produtos[index], nome, categoria, preco, precoAntigo, desconto, parcelas, tag,
+                        imagens, descricao, freteGratis, ordem };
+                }
+            } else {
+                const novoId = produtos.length > 0 ? Math.max(...produtos.map(p => p.id)) + 1 : 1;
+                produtos.push({ id: novoId, nome, categoria, preco, precoAntigo, desconto, parcelas, tag, imagens,
+                    descricao, freteGratis, ordem });
+            }
+            localStorage.setItem('aurora_produtos_admin', JSON.stringify(produtos));
+            renderizarTabela();
+            document.getElementById('formProduto').reset();
+            document.getElementById('prodId').value = '';
+            document.getElementById('ordem').value = 999;
+            toast(id ? '✅ Produto atualizado!' : '✅ Produto adicionado!');
+        });
+
+        document.getElementById('btnRestaurar').addEventListener('click', () => {
+            if (confirm('Restaurar produtos padrão (do arquivo produtos.json)?')) {
+                fetch('produtos.json')
+                    .then(res => {
+                        if (!res.ok) throw new Error('HTTP ' + res.status);
+                        return res.json();
+                    })
+                    .then(dados => {
+                        produtos = dados;
+                        localStorage.setItem('aurora_produtos_admin', JSON.stringify(produtos));
+                        renderizarTabela();
+                        toast('↺ Produtos restaurados!');
+                    })
+                    .catch(() => toast('❌ Erro ao restaurar.'));
+            }
+        });
+
+        document.getElementById('btnSalvarGitHub').addEventListener('click', () => {
+            const json = JSON.stringify(produtos, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'produtos.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            toast('📥 produtos.json baixado!');
+        });
+
+        document.getElementById('uploadJson').addEventListener('change', function(e) {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                try {
+                    const dados = JSON.parse(ev.target.result);
+                    if (!Array.isArray(dados) || dados.length === 0) {
+                        toast('❌ JSON inválido ou vazio.');
+                        return;
+                    }
+                    produtos = dados;
+                    localStorage.setItem('aurora_produtos_admin', JSON.stringify(produtos));
+                    renderizarTabela();
+                    toast('✅ JSON carregado com sucesso!');
+                } catch (err) {
+                    toast('❌ Erro ao processar JSON.');
+                }
+            };
+            reader.readAsText(file);
+            this.value = '';
+        });
+
+        // Login
+        document.getElementById('btnLogin').addEventListener('click', () => {
+            const user = document.getElementById('loginUser').value;
+            const pass = document.getElementById('loginPass').value;
+            if (user === USUARIO && pass === SENHA) {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('painelAdmin').style.display = 'block';
+                localStorage.setItem('admin_logado_aurora', 'true');
+                carregarProdutos();
+                toast('🔓 Bem-vindo, admin!');
+            } else {
+                toast('❌ Usuário ou senha incorretos.');
+            }
+        });
+
+        document.getElementById('loginPass').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') document.getElementById('btnLogin').click();
+        });
+
+        if (localStorage.getItem('admin_logado_aurora') === 'true') {
+            document.getElementById('loginBox').style.display = 'none';
+            document.getElementById('painelAdmin').style.display = 'block';
+            carregarProdutos();
+        }
+    </script>
+</body>
+</html>
